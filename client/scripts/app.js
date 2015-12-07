@@ -14,5 +14,18 @@ var app = {
       url: "https://api.parse.com/1/classes/chatterbox",
       type: "GET"
     });
+  },
+  clearMessages: function(){
+    $('#chats').children().remove();
+  },
+  addMessage: function(message){
+    $('<div/>', {
+      text: message.text
+    }).appendTo('#chats');
+  },
+  addRoom : function(room){
+    $('<div/>', {
+      text: room
+    }).appendTo('#roomSelect');
   }
 };
