@@ -5,8 +5,7 @@ var app = {
     $.ajax({
       type: "POST",
       url: "https://api.parse.com/1/classes/chatterbox",
-      data: JSON.stringify(message),
-      // dataType: "object"
+      data: JSON.stringify(message)
     });
   },
   fetch: function(){
@@ -19,13 +18,37 @@ var app = {
     $('#chats').children().remove();
   },
   addMessage: function(message){
-    $('<div/>', {
-      text: message.text
-    }).appendTo('#chats');
+    var username = $('<a/>', {
+      text: message.username, 
+      href:'#', 
+      class: 'username', 
+      click: function(){
+        app.addFriend();
+      } 
+    });
+
+    var post = $('<p/>', {
+      text: message.text, 
+      class:'post'
+    });
+
+    var msg = $('<div/>');
+
+    username.appendTo(msg);
+    post.appendTo(msg);
+    msg.appendTo('#chats');
   },
-  addRoom : function(room){
+  addRoom: function(room){
     $('<div/>', {
       text: room
     }).appendTo('#roomSelect');
+  },
+  addFriend: function(){},
+  handleSubmit: function(){
+    var usr = "username";
+    var rm = "roomname";
+    var post = $('#message').val();
+    console.log(post);
+    app.addMessage({username: usr, text: post, roomname: rm});
   }
 };
