@@ -6,8 +6,11 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-.username{
+.friend {
     font-weight: bold;
+}
+
+.username{
     color:#403F6F;
 }
 .username:hover{

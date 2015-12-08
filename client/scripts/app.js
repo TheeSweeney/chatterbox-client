@@ -4,10 +4,12 @@ function escapeHtml(str) {
     return div.innerHTML;
 };
 
+var lastCreatedAt = new Date();
+
 var app = {
   server: "https://api.parse.com/1/classes/chatterbox",
   init: function(){
-    // app.fetch();
+    app.fetch();
     //commented fetch out to test idea of only loading 
     //msgs on demand a la whatsapp
   },
@@ -17,31 +19,41 @@ var app = {
       url: "https://api.parse.com/1/classes/chatterbox",
       data: JSON.stringify(message)
     });
+    console.log(new Date());
   },
   fetch: function(){
     $.ajax({
       url: "https://api.parse.com/1/classes/chatterbox",
       type: "GET",
       success: function(data){
-        for(var i = 0; i < 20; i++){
+        for(var i = 0; i < data.results.length; i++){
           var cur = data.results[i];
-          app.addMessage({username: cur.username, text: cur.text, roomname: cur.roomname});
+          // var curDate = new Date(cur.createdAt);
+          // console.log(curDate, lastCreatedAt)
+          // if(curDate.getTime()  >= lastCreatedAt.getTime()){
+          //   break;
+          // }else{
+            app.addMessage({username: cur.username, text: cur.text, roomname: cur.roomname}, cur.objectId);  
+          // }
         }
-        
+
+        // lastCreatedAt = new Date(data.results[0].createdAt);
       }
     });
   },
   clearMessages: function(){
     $('#chats').children().remove();
   },
-  addMessage: function(message){
+  addMessage: function(message, usrID){
 
     var username = $('<a/>', {
       text: message.username || '< no username set >', 
       href:'#', 
-      class: 'username', 
+      class: 'username ' + message.username, 
       click: function(){
-        app.addFriend();
+        // console.log($(this))
+        // var input = $(this);
+        app.addFriend(message.username);
       } 
     });
 
@@ -64,14 +76,16 @@ var app = {
     username.appendTo(msg);
     roomname.appendTo(msg);
     post.appendTo(msg);
-    msg.prependTo('#chats');
+    msg.appendTo('#chats');
   },
   addRoom: function(room){
     $('<div/>', {
       text: room
     }).appendTo('#roomSelect');
   },
-  addFriend: function(){},
+  addFriend: function(usrID){
+    $('.' + usrID).addClass("friend")
+  },
   handleSubmit: function(){
     console.log("calling");
     var usr = window.location.search.slice(10).replace(/%20/g, ' ');
@@ -81,6 +95,7 @@ var app = {
     app.send(
       {username: usr, text: post, roomname: rm}
     );
+    app.clearMessages();
     app.fetch();
   }
 };
