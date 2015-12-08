@@ -5,6 +5,7 @@ function escapeHtml(str) {
 };
 
 var lastCreatedAt = new Date();
+var rooms = [];
 
 var app = {
   server: "https://api.parse.com/1/classes/chatterbox",
@@ -33,13 +34,30 @@ var app = {
           // if(curDate.getTime()  >= lastCreatedAt.getTime()){
           //   break;
           // }else{
+            
+            if(rooms.indexOf(cur.roomname) === -1){
+
+              rooms.push(cur.roomname);
+            }
             app.addMessage({username: cur.username, text: cur.text, roomname: cur.roomname}, cur.objectId);  
           // }
         }
 
+        for(var i = 0; i < rooms.length; i++){
+          if(rooms[i] !== undefined){
+            var opt = $('<option/>', {text: rooms[i]});
+            console.log(opt);
+            opt.appendTo('#roomSelect');
+          }
+        }
+      
         // lastCreatedAt = new Date(data.results[0].createdAt);
       }
+
+
+
     });
+    
   },
   clearMessages: function(){
     $('#chats').children().remove();
