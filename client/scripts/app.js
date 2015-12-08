@@ -34,9 +34,9 @@ var app = {
           // if(curDate.getTime()  >= lastCreatedAt.getTime()){
           //   break;
           // }else{
+            cur.roomname = cur.roomname || "< none >"
             
             if(rooms.indexOf(cur.roomname) === -1){
-
               rooms.push(cur.roomname);
             }
             app.addMessage({username: cur.username, text: cur.text, roomname: cur.roomname}, cur.objectId);  
@@ -89,7 +89,7 @@ var app = {
       class:'post'
     });
 
-    var msg = $('<li/>');
+    var msg = $('<li/>', {class: message.roomname});
 
     username.appendTo(msg);
     roomname.appendTo(msg);
@@ -115,6 +115,6 @@ var app = {
     );
     app.clearMessages();
     app.fetch();
-  }
+  },
 };
 

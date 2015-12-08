@@ -39,6 +39,11 @@
         return false;
       })
 
+      $('#roomSelect').change(function(event){
+        var roomname = $(this).find(":selected").text();
+        $('.' + roomname).hide();
+      })
+
 
     })
     </script>
