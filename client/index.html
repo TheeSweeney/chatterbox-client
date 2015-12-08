@@ -13,19 +13,33 @@
     <script src="scripts/app.js"></script>
   </head>
   <body>
+    <ul id="chats"></ul>
+    Welcome to X room. Click to load 10 prev. messages
     <div id="main">
-      <h1>chatterbox</h1>
+      <h1>CHATTERBOX</h1>
       <!-- Your HTML goes here! -->
       <div id="rooms">
       Room:
       <select id="roomSelect">
       </select>
     </div>
-    <form action="#" id="send" method="post" onsubmit="app.handleSubmit()">
+    <form action="#" id="send" method="post">
       <input type="text" name="message" id="message"/>
       <input type="submit" name="submit" class="submit"/>
     </form>
     </div>
-    <div id="chats"></div>
+    <script>
+    $(function(){
+      app.init();
+
+
+      $('#send').submit(function(event){
+        app.handleSubmit();
+        return false;
+      })
+
+
+    })
+    </script>
   </body>
 </html>

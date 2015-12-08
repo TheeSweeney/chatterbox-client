@@ -1,8 +1,32 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 body {
-    background: #eee;
+    background: #BEC6D5;
     text-align: center;
     padding: 0 25px;
-    font-family: arial, sans-serif;
+    font-family: 'Lato', sans-serif;
+}
+
+.username{
+    font-weight: bold;
+    color:#403F6F;
+}
+.username:hover{
+    color:#91A7D0;
+}
+
+#chats>li{
+    display: block;
+    padding: 5px 10px;
+}
+
+li:nth-child(odd){
+    background-color: #eef0f4;
+}
+
+.roomname {
+    float: right;
+    color: gray;
+    font-size: 14px;
 }
 
 #main, #chats {
@@ -10,7 +34,7 @@ body {
     margin: auto;
     text-align: left;
     background: white;
-    padding: 50px 60px;
+    padding: 50px 20px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
 }
@@ -20,6 +44,19 @@ body {
     font-size: 35px;
     margin-bottom: 5px;
     padding: 5px;
+
+    text-align:center;
+    font-weight:700;
+
+    /*text-shadow: 0px 0px 5px rgba(255, 255, 255, 1);*/
+    color:#91A7D0;
+   text-shadow:
+       0px 0px 5px #403F6F,
+     -1px -1px 0 #403F6F,  
+      1px -1px 0 #403F6F,
+      -1px 1px 0 #403F6F,
+       1px 1px 0 #403F6F;
+       
 }
 
 #main h1 span {
