@@ -26,7 +26,7 @@ li:nth-child(odd){
     background-color: #eef0f4;
 }
 
-.roomname {
+.roomname-link-item {
     float: right;
     color: gray;
     font-size: 14px;

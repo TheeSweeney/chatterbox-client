@@ -41,7 +41,9 @@
 
       $('#roomSelect').change(function(event){
         var roomname = $(this).find(":selected").text();
-        $('.' + roomname).hide();
+        $('li').show();
+        $('li:not(.' + roomname.replace(/\s/g, '') + ")").hide();
+        //$('.' + roomname.replace(/\s/g, '')).hide();
       })
 
 

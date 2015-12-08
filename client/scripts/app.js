@@ -20,7 +20,6 @@ var app = {
       url: "https://api.parse.com/1/classes/chatterbox",
       data: JSON.stringify(message)
     });
-    console.log(new Date());
   },
   fetch: function(){
     $.ajax({
@@ -34,7 +33,7 @@ var app = {
           // if(curDate.getTime()  >= lastCreatedAt.getTime()){
           //   break;
           // }else{
-            cur.roomname = cur.roomname || "< none >"
+            cur.roomname = cur.roomname.replace(/\s/g, '') || "none"
             
             if(rooms.indexOf(cur.roomname) === -1){
               rooms.push(cur.roomname);
@@ -46,7 +45,6 @@ var app = {
         for(var i = 0; i < rooms.length; i++){
           if(rooms[i] !== undefined){
             var opt = $('<option/>', {text: rooms[i]});
-            console.log(opt);
             opt.appendTo('#roomSelect');
           }
         }
@@ -69,8 +67,6 @@ var app = {
       href:'#', 
       class: 'username ' + message.username, 
       click: function(){
-        // console.log($(this))
-        // var input = $(this);
         app.addFriend(message.username);
       } 
     });
@@ -78,10 +74,7 @@ var app = {
     var roomname = $('<a/>', {
       text: message.roomname || '< no room identified >', 
       href:'#', 
-      class: 'roomname', 
-      // click: function(){
-      //   app.addFriend();
-      // } 
+      class: 'roomname-link-item', 
     });
 
     var post = $('<p/>', {
@@ -105,11 +98,9 @@ var app = {
     $('.' + usrID).addClass("friend")
   },
   handleSubmit: function(){
-    console.log("calling");
-    var usr = window.location.search.slice(10).replace(/%20/g, ' ');
+    var usr = decodeURI(window.location.search.slice(10))
     var rm = "roomname";
-    var post = $('#message').val();
-    console.log(post);
+    var post = escapeHtml($('#message').val())
     app.send(
       {username: usr, text: post, roomname: rm}
     );
