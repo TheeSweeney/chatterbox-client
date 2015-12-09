@@ -33,7 +33,8 @@ var app = {
           // if(curDate.getTime()  >= lastCreatedAt.getTime()){
           //   break;
           // }else{
-            cur.roomname = cur.roomname.replace(/\s/g, '') || "none"
+            cur.roomname = cur.roomname || "none";
+            cur.roomname = cur.roomname.replace(/\s/g, '');
             
             if(rooms.indexOf(cur.roomname) === -1){
               rooms.push(cur.roomname);
